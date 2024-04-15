@@ -20,3 +20,87 @@ TEST(PasswordTest, single_letter_password)
 	int actual = my_password.count_leading_characters("Z");
 	ASSERT_EQ(1, actual);
 }
+
+TEST(PasswordTest, single_leading_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("Zebra");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, four_letter_leading_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("ZZZZebra");
+	ASSERT_EQ(4, actual);
+}
+
+TEST(PasswordTest, thirteen_letter_leading_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("ZZZZZZZZZZZZZebra12");
+	ASSERT_EQ(13, actual);
+}
+
+TEST(PasswordTest, number_leading_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("12Zebra");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, character_leading_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("!Zebra");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, character_repeated_later_in_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("Zebraz");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, capital_then_lowercase_password)
+{
+	Password my_password;
+	int actual = my_password.count_leading_characters("Zzebra");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, both_uppercase_and_lowercase_password)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("Aa");
+	ASSERT_EQ(true, actual);
+}
+
+TEST(PasswordTest, only_lowercase_password)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("aa");
+	ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, only_uppercase_password)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("AA");
+	ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, random_uppercase_password)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("heLlo");
+	ASSERT_EQ(true, actual);
+}
+
+TEST(PasswordTest, full_normal_password)
+{
+	Password my_password;
+	bool actual = my_password.has_mixed_case("Mypassword45!");
+	ASSERT_EQ(true, actual);
+}
