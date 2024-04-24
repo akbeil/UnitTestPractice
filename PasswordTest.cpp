@@ -104,3 +104,39 @@ TEST(PasswordTest, full_normal_password)
 	bool actual = my_password.has_mixed_case("Mypassword45!");
 	ASSERT_EQ(true, actual);
 }
+
+TEST(PasswordTest, yes_it_is_password)
+{
+	Password my_password;
+	bool actual = my_password.authenticate("ChicoCA-95926");
+	ASSERT_EQ(true, actual);
+}
+
+TEST(PasswordTest, no_it_is_not_password)
+{
+	Password my_password;
+	bool actual = my_password.authenticate("ChicoCA");
+	ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, authenticate_old_password)
+{
+	Password my_password;
+	my_password.set("HelloThere");
+	my_password.set("HelloThere12");
+	my_password.set("HelloThere4!");
+	my_password.set("HelloThere9.");
+	bool actual = my_password.authenticate("HelloThere");
+	ASSERT_EQ(false, actual);
+} 
+
+TEST(PasswordTest, authenticate_newest_password)
+{
+	Password my_password;
+	my_password.set("HelloThere");
+	my_password.set("HelloThere12");
+	my_password.set("HelloThere4!");
+	my_password.set("HelloThere9.");
+	bool actual = my_password.authenticate("HelloThere9.");
+	ASSERT_EQ(true, actual);
+} 	
